@@ -42,3 +42,5 @@ jobs:
       image: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
       namespace: "inventory-staging"
       deployment: "inventory-service"
+    secrets:
+      KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG_STAGING }}
