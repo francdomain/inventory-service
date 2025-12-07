@@ -19,10 +19,6 @@ jobs:
     uses: francdomain/platform-ci/.github/workflows/go-matrix-test.yml@v1
     with:
       working-directory: "."
-    secrets:
-      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Stage 2: Docker Build & Push using reusable workflow
   docker-build:
