@@ -29,8 +29,8 @@ jobs:
     with:
       image-name: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
     secrets:
-      username: ${{ secrets.REGISTRY_USERNAME }}
-      password: ${{ secrets.REGISTRY_PASSWORD }}
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
 
   # Stage 3: Deploy to Staging using reusable workflow
   deploy-staging:
