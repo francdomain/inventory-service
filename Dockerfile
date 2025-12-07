@@ -15,8 +15,6 @@ EXPOSE 8080
 CMD ["./inventory-service"]
 
 
-
-
 # # Build stage
 # FROM golang:1.22-alpine AS builder
 
