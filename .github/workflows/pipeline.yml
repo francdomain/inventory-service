@@ -28,6 +28,7 @@ jobs:
     uses: francdomain/platform-ci/.github/workflows/build-and-push-image.yml@v1
     with:
       image-name: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
+    secrets:
       username: ${{ secrets.REGISTRY_USERNAME }}
       password: ${{ secrets.REGISTRY_PASSWORD }}
 
