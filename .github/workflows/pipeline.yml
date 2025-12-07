@@ -1,0 +1,50 @@
+name: Inventory Service Pipeline
+
+on:
+  push:
+    branches: [ main, feature/** ]
+  pull_request:
+    branches: [ main ]
+
+# Required for reusable workflows
+permissions:
+  contents: read
+  packages: write
+  actions: read
+
+jobs:
+  # Stage 1: Matrix Tests using reusable workflow
+  tests:
+    name: Run Matrix Tests
+    uses: francdomain/platform-ci/.github/workflows/go-matrix-test.yml@v1
+    with:
+      working-directory: "."
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Stage 2: Docker Build & Push using reusable workflow
+  docker-build:
+    name: Build and Push Docker Image
+    needs: tests
+    if: github.ref == 'refs/heads/main'
+    uses: francdomain/platform-ci/.github/workflows/build-and-push-image.yml@v1
+    with:
+      image-name: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
+    secrets:
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Stage 3: Deploy to Staging using reusable workflow
+  deploy-staging:
+    name: Deploy to Staging
+    needs: docker-build
+    if: github.ref == 'refs/heads/main'
+    uses: francdomain/platform-ci/.github/workflows/deploy-k8s.yml@v1
+    with:
+      image: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
+      namespace: "inventory-staging"
+      deployment: "inventory-service"
+    secrets:
+      KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG_STAGING }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
