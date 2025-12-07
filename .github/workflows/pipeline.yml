@@ -20,7 +20,9 @@ jobs:
     with:
       working-directory: "."
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Stage 2: Docker Build & Push using reusable workflow
   docker-build:
@@ -33,7 +35,7 @@ jobs:
     secrets:
       REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
       REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Stage 3: Deploy to Staging using reusable workflow
   deploy-staging:
@@ -47,4 +49,6 @@ jobs:
       deployment: "inventory-service"
     secrets:
       KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG_STAGING }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
