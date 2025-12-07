@@ -27,7 +27,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     uses: francdomain/platform-ci/.github/workflows/build-and-push-image.yml@v1.3
     with:
-      image-name: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
+      image-name: "ghcr.io/francdomain/inventory-service:${{ github.sha }}"
     secrets:
       REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
       REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
@@ -39,7 +39,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     uses: francdomain/platform-ci/.github/workflows/deploy-k8s.yml@v1.3
     with:
-      image: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
+      image: "ghcr.io/francdomain/inventory-service:${{ github.sha }}"
       namespace: "inventory-staging"
       deployment: "inventory-service"
     secrets:
