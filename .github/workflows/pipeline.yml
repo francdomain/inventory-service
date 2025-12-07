@@ -28,6 +28,8 @@ jobs:
     uses: francdomain/platform-ci/.github/workflows/build-and-push-image.yml@v1
     with:
       image-name: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
+      username: ${{ secrets.REGISTRY_USERNAME }}
+      password: ${{ secrets.REGISTRY_PASSWORD }}
 
   # Stage 3: Deploy to Staging using reusable workflow
   deploy-staging:
