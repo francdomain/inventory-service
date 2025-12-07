@@ -16,7 +16,7 @@ jobs:
   # Stage 1: Matrix Tests using reusable workflow
   tests:
     name: Run Matrix Tests
-    uses: francdomain/platform-ci/.github/workflows/go-matrix-test.yml@v1.1
+    uses: francdomain/platform-ci/.github/workflows/go-matrix-test.yml@v1.2
     with:
       working-directory: "."
 
@@ -25,7 +25,7 @@ jobs:
     name: Build and Push Docker Image
     needs: tests
     if: github.ref == 'refs/heads/main'
-    uses: francdomain/platform-ci/.github/workflows/build-and-push-image.yml@v1.1
+    uses: francdomain/platform-ci/.github/workflows/build-and-push-image.yml@v1.2
     with:
       image-name: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
     secrets:
@@ -37,7 +37,7 @@ jobs:
     name: Deploy to Staging
     needs: docker-build
     if: github.ref == 'refs/heads/main'
-    uses: francdomain/platform-ci/.github/workflows/deploy-k8s.yml@v1.1
+    uses: francdomain/platform-ci/.github/workflows/deploy-k8s.yml@v1.2
     with:
       image: "ghcr.io/${{ github.actor }}/inventory-service:${{ github.sha }}"
       namespace: "inventory-staging"
