@@ -49,6 +49,6 @@ jobs:
       deployment: "inventory-service"
     secrets:
       KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG_STAGING }}
-      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
-      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+      # REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      # REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
       # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
